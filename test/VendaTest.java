@@ -12,11 +12,28 @@ public class VendaTest {
     private Cliente clienteIdoso;
     private Cliente clienteNaoEstudanteENaoIdoso;
     private Cliente clienteEstudanteEIdoso;
-    private CalculoValorIngressoStrategy pistaStrategy;
-    private CalculoValorIngressoStrategy pistaPremiumStrategy;
-    private CalculoValorIngressoStrategy camaroteStrategy;
-    private CalculoValorIngressoStrategy cadeiraInferiorStrategy;
-    private CalculoValorIngressoStrategy cadeiraSuperiorStrategy;
+
+    private Venda vendaPistaEstudante;
+    private Venda vendaPistaIdoso;
+    private Venda vendaPistaNormal;
+
+    private Venda vendaPistaPremiumEstudante;
+    private Venda vendaPistaPremiumIdoso;
+    private Venda vendaPistaPremiumNormal;
+
+    private Venda vendaCamaroteEstudante;
+    private Venda vendaCamaroteIdoso;
+    private Venda vendaCamaroteNormal;
+
+    private Venda vendaCadeiraInfEstudante;
+    private Venda vendaCadeiraInfIdoso;
+    private Venda vendaCadeiraInfNormal;
+
+    private Venda vendaCadeiraSupEstudante;
+    private Venda vendaCadeiraSupIdoso;
+    private Venda vendaCadeiraSupNormal;
+
+    private TipoIngressoEnum tipoIngressoEnum;
 
     @Before
     public void init() {
@@ -25,115 +42,130 @@ public class VendaTest {
         this.clienteNaoEstudanteENaoIdoso = new Cliente(LocalDate.of(1980,05,22), false);
         this.clienteEstudanteEIdoso = new Cliente(LocalDate.of(1940,2,12), true);
 
-        this.pistaStrategy = new PistaStrategy();
-        this.pistaPremiumStrategy = new PistaPremiumStrategy();
-        this.camaroteStrategy = new CamaroteStrategy();
-        this.cadeiraInferiorStrategy = new CadeiraInferiorStrategy();
-        this.cadeiraSuperiorStrategy = new CadeiraSuperiorStrategy();
+        this.vendaPistaEstudante = new Venda(clienteEstudante, tipoIngressoEnum.PISTA);
+        this.vendaPistaIdoso = new Venda(clienteIdoso, tipoIngressoEnum.PISTA);
+        this.vendaPistaNormal = new Venda(clienteNaoEstudanteENaoIdoso, tipoIngressoEnum.PISTA);
+
+        this.vendaPistaPremiumEstudante = new Venda(clienteEstudante, tipoIngressoEnum.PISTA_PREMIUM);
+        this.vendaPistaPremiumIdoso = new Venda(clienteIdoso, tipoIngressoEnum.PISTA_PREMIUM);
+        this.vendaPistaPremiumNormal = new Venda(clienteNaoEstudanteENaoIdoso, tipoIngressoEnum.PISTA_PREMIUM);
+
+        this.vendaCamaroteEstudante = new Venda(clienteEstudante, tipoIngressoEnum.CAMAROTE);
+        this.vendaCamaroteIdoso = new Venda(clienteIdoso, tipoIngressoEnum.CAMAROTE);
+        this.vendaCamaroteNormal = new Venda(clienteNaoEstudanteENaoIdoso, tipoIngressoEnum.CAMAROTE);
+
+        this.vendaCadeiraInfEstudante = new Venda(clienteEstudante, tipoIngressoEnum.CADEIRA_INFERIOR);
+        this.vendaCadeiraInfIdoso = new Venda(clienteIdoso, tipoIngressoEnum.CADEIRA_INFERIOR);
+        this.vendaCadeiraInfNormal = new Venda(clienteNaoEstudanteENaoIdoso, tipoIngressoEnum.CADEIRA_INFERIOR);
+
+        this.vendaCadeiraSupEstudante = new Venda(clienteEstudante, tipoIngressoEnum.CADEIRA_SUPERIOR);
+        this.vendaCadeiraSupIdoso = new Venda(clienteIdoso, tipoIngressoEnum.CADEIRA_SUPERIOR);
+        this.vendaCadeiraSupNormal = new Venda(clienteNaoEstudanteENaoIdoso, tipoIngressoEnum.CADEIRA_SUPERIOR);
+
     }
 
     @Test
     public void deveCriarUmaVendaPistaParaEstudante() {
 
-        Assert.assertEquals(pistaStrategy.calcularValorIngresso(clienteEstudante).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaEstudante.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN) ,
                 new BigDecimal(125.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaPistaParaIdoso() {
 
-        Assert.assertEquals(pistaStrategy.calcularValorIngresso(clienteIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaIdoso.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(125.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaPistaParaNaoIdosoNaoEstudante() {
 
-        Assert.assertEquals(pistaStrategy.calcularValorIngresso(clienteNaoEstudanteENaoIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaNormal.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(250.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaPistaPremiumParaEstudante() {
 
-        Assert.assertEquals(pistaPremiumStrategy.calcularValorIngresso(clienteEstudante).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaPremiumEstudante.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(200.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaPistaPremiumParaIdoso() {
 
-        Assert.assertEquals(pistaPremiumStrategy.calcularValorIngresso(clienteIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaPremiumIdoso.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(200.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaPistaPremiumParaNaoIdosoNaoEstudante() {
 
-        Assert.assertEquals(pistaPremiumStrategy.calcularValorIngresso(clienteNaoEstudanteENaoIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaPistaPremiumNormal.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(400.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCamaroteParaEstudante() {
 
-        Assert.assertEquals(camaroteStrategy.calcularValorIngresso(clienteEstudante).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCamaroteEstudante.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(750.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCamaroteParaIdoso() {
 
-        Assert.assertEquals(camaroteStrategy.calcularValorIngresso(clienteIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCamaroteIdoso.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(750.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCamaroteParaNaoIdosoNaoEstudante() {
 
-        Assert.assertEquals(camaroteStrategy.calcularValorIngresso(clienteNaoEstudanteENaoIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCamaroteNormal.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(750.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraInferiorParaEstudante() {
 
-        Assert.assertEquals(cadeiraInferiorStrategy.calcularValorIngresso(clienteEstudante).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraInfEstudante.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(100.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraInferiorParaIdoso() {
 
-        Assert.assertEquals(cadeiraInferiorStrategy.calcularValorIngresso(clienteIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraInfIdoso.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(80.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraInferiorParaNaoIdosoNaoEstudante() {
 
-        Assert.assertEquals(cadeiraInferiorStrategy.calcularValorIngresso(clienteNaoEstudanteENaoIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraInfNormal.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(200.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraSuperiorParaEstudante() {
 
-        Assert.assertEquals(cadeiraSuperiorStrategy.calcularValorIngresso(clienteEstudante).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraSupEstudante.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(75.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraSuperiorParaIdoso() {
 
-        Assert.assertEquals(cadeiraSuperiorStrategy.calcularValorIngresso(clienteIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraSupIdoso.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(60.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Test
     public void deveCriarUmaVendaCadeiraSuperiorParaNaoIdosoNaoEstudante() {
 
-        Assert.assertEquals(cadeiraSuperiorStrategy.calcularValorIngresso(clienteNaoEstudanteENaoIdoso).setScale(2, RoundingMode.HALF_EVEN),
+        Assert.assertEquals(vendaCadeiraSupNormal.getValorIngresso().setScale(2, RoundingMode.HALF_EVEN),
                 new BigDecimal(150.0).setScale(2, RoundingMode.HALF_EVEN));
     }
 }

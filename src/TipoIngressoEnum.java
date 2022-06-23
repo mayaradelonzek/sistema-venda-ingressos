@@ -1,6 +1,6 @@
 public enum TipoIngressoEnum {
     PISTA(new PistaStrategy()),
-    PISTA_PREMIUM(new PistaStrategy()),
+    PISTA_PREMIUM(new PistaPremiumStrategy()),
     CAMAROTE(new CamaroteStrategy()),
     CADEIRA_INFERIOR(new CadeiraInferiorStrategy()),
     CADEIRA_SUPERIOR(new CadeiraSuperiorStrategy());
