@@ -3,7 +3,7 @@ import java.time.Period;
 
 public class Cliente {
 
-    private LocalDate dataNascimento;
+    private final LocalDate dataNascimento;
     private Boolean isEstudante;
 
     public Cliente(LocalDate dataNascimento, Boolean isEstudante) {

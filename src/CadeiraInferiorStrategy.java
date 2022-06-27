@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 
 public class CadeiraInferiorStrategy implements CalculoValorIngressoStrategy {
-    BigDecimal valorIngresso = new BigDecimal(200.00);
+    BigDecimal valorIngresso = BigDecimal.valueOf(200.00);
 
     @Override
     public BigDecimal calcularValorIngresso(Cliente cliente) {

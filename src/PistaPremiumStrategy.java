@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 
 public class PistaPremiumStrategy implements CalculoValorIngressoStrategy {
-    BigDecimal valorIngresso = new BigDecimal(400.00);
+    BigDecimal valorIngresso = BigDecimal.valueOf(400.00);
 
     @Override
     public BigDecimal calcularValorIngresso(Cliente cliente) {
